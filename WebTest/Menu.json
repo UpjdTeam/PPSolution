@@ -1,0 +1,61 @@
+{
+     "button":[
+	 {
+            "name": "入库", 
+            "sub_button": [
+                {
+                    "type": "scancode_waitmsg", 
+                    "name": "扫码入库", 
+                    "key": "scan_store_0", 
+                    "sub_button": [ ]
+                }, 
+                {
+                    "type": "scancode_waitmsg", 
+                    "name": "库存查询", 
+                    "key": "scan_store_1", 
+                    "sub_button": [ ]
+                }
+            ]
+     }, 
+	 {
+            "name": "出库", 
+            "sub_button": [
+                {
+                    "type": "scancode_waitmsg", 
+                    "name": "扫码出库", 
+                    "key": "scan_delivery_0", 
+                    "sub_button": [ ]
+                }, 
+                {
+                    "type": "scancode_waitmsg", 
+                    "name": "库存查询", 
+                    "key": "scan_delivery_1", 
+                    "sub_button": [ ]
+                }
+            ]
+     }, 
+     {  
+           "name":"数据中心",
+           "sub_button":[
+           {    
+               "type":"view",
+               "name":"库存汇总",
+               "url":"http://www.soso.com/"
+            },
+            {
+               "type":"view",
+               "name":"当日入库统计",
+               "url":"http://v.qq.com/"
+            },
+            {
+               "type":"view",
+               "name":"当日出库统计",
+               "url":"http://v.qq.com/"
+            },
+            {
+               "type":"view",
+               "name":"关于我们",
+               "url":"http://v.qq.com/"
+            }]
+       }]
+ }
