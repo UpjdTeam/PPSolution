@@ -81,8 +81,9 @@ namespace WxBridge
                         var fromUserName = rootElement.SelectSingleNode("FromUserName").InnerText;
                         var eventKey = rootElement.SelectSingleNode("EventKey").InnerText;
 
-                        
 
+
+                        #region scan_store_1
 
                         if (eventKey.Equals("scan_store_1"))
                         {
@@ -109,6 +110,8 @@ namespace WxBridge
                             HttpContext.Current.Response.Write(encryptResponse);
                             DataSubmit("0DDD002", "发送", "发送:" + encryptResponse);
                         }
+                        #endregion
+                        #region scan_store_0
                         else if (eventKey.Equals("scan_store_0"))
                         {
                             var sResult = rootElement.SelectSingleNode("ScanCodeInfo").ChildNodes[1].InnerText;
@@ -140,7 +143,73 @@ namespace WxBridge
                             HttpContext.Current.Response.Write(encryptResponse);
                             DataSubmit("0DDD002", "发送", "发送:" + encryptResponse);
                         }
-                        
+                        #endregion
+
+
+                        #region scan_delivery_1
+
+                        if (eventKey.Equals("scan_delivery_1"))
+                        {
+
+
+
+                            var xmlMsg = @"<xml><ToUserName><![CDATA[" + fromUserName + @"]]></ToUserName>
+                                <FromUserName><![CDATA[" + toUserName + @"]]></FromUserName>
+                                <CreateTime>1441848212</CreateTime>
+                                <MsgType><![CDATA[text]]></MsgType>
+                                <Content><![CDATA[" + "今日入库总数10" + @"]]></Content>
+                                <MsgId>4385226390207725595</MsgId>
+                                <AgentID>1</AgentID>
+                                </xml>";
+                            DataSubmit("0DDD001", "发送", "发送:" + xmlMsg);
+                            //加密后并发送
+                            //LogTextHelper.Info(responseContent);
+                            string encryptResponse = "";
+                            wxcpt.EncryptMsg(xmlMsg, timestamp, nonce, ref encryptResponse);
+
+
+
+                            HttpContext.Current.Response.ContentEncoding = Encoding.UTF8;
+                            HttpContext.Current.Response.Write(encryptResponse);
+                            DataSubmit("0DDD002", "发送", "发送:" + encryptResponse);
+                        }
+                        #endregion
+
+                        #region scan_delivery_0
+                        else if (eventKey.Equals("scan_delivery_0"))
+                        {
+                            var sResult = rootElement.SelectSingleNode("ScanCodeInfo").ChildNodes[1].InnerText;
+
+                            if (sResult.Contains(","))
+                            {
+                                sResult = sResult.Substring(sResult.IndexOf(',') + 1, sResult.Length - sResult.IndexOf(',') - 1);
+                            }
+                            var psa = new ProDeliveryAdapter();
+                            var gR = psa.AddProDelivery(sResult, fromUserName);
+
+                            var xmlMsg = @"<xml><ToUserName><![CDATA[" + fromUserName + @"]]></ToUserName>
+                                <FromUserName><![CDATA[" + toUserName + @"]]></FromUserName>
+                                <CreateTime>1441848212</CreateTime>
+                                <MsgType><![CDATA[text]]></MsgType>
+                                <Content><![CDATA[" + gR + @"]]></Content>
+                                <MsgId>4385226390207725595</MsgId>
+                                <AgentID>1</AgentID>
+                                </xml>";
+                            DataSubmit("0DDD001", "发送", "发送:" + xmlMsg);
+                            //加密后并发送
+                            //LogTextHelper.Info(responseContent);
+                            string encryptResponse = "";
+                            wxcpt.EncryptMsg(xmlMsg, timestamp, nonce, ref encryptResponse);
+
+
+
+                            HttpContext.Current.Response.ContentEncoding = Encoding.UTF8;
+                            HttpContext.Current.Response.Write(encryptResponse);
+                            DataSubmit("0DDD002", "发送", "发送:" + encryptResponse);
+                        }
+
+                        #endregion
+
                     }
                 }
                 catch (Exception ex)

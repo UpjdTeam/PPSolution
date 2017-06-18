@@ -70,6 +70,7 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="MFunction.cs" />
+    <Compile Include="ProDeliveryAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -81,6 +82,9 @@
     <Compile Include="WXBizMsgCrypt.cs" />
     <Compile Include="WxEnterprise.ashx.cs">
       <DependentUpon>WxEnterprise.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="WxStore.cs">
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
