@@ -139,13 +139,12 @@
     <Content Include="BcRelation.html" />
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\barcodepad.png" />
-    <Content Include="img\Digital.png" />
     <Content Include="img\GDP.png" />
     <Content Include="img\intro-bg.jpg" />
     <Content Include="img\ipad.png" />
     <Content Include="img\phones.png" />
     <Content Include="img\WechatE.png" />
-    <Content Include="index.html" />
+    <Content Include="Index.html" />
     <Content Include="Inventory.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
@@ -163,6 +162,7 @@
     <Compile Include="DLL\DalInventory.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DLL\DalDeliveryDetail.cs" />
     <Compile Include="DLL\DalStoreDetail.cs" />
     <Compile Include="DLL\HandlerInventory.ashx.cs">
       <DependentUpon>HandlerInventory.ashx</DependentUpon>
@@ -171,10 +171,14 @@
     <Compile Include="DLL\HandlerLogin.ashx.cs">
       <DependentUpon>HandlerLogin.ashx</DependentUpon>
     </Compile>
+    <Compile Include="DLL\HandlerDeliveryDetail.ashx.cs">
+      <DependentUpon>HandlerDeliveryDetail.ashx</DependentUpon>
+    </Compile>
     <Compile Include="DLL\HandlerStoreDetail.ashx.cs">
       <DependentUpon>HandlerStoreDetail.ashx</DependentUpon>
     </Compile>
     <Compile Include="DLL\JsonHelper.cs" />
+    <Compile Include="DLL\DeliveryDetail.cs" />
     <Compile Include="DLL\StoreDetail.cs" />
     <Compile Include="MSSQLFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -196,6 +200,7 @@
     <Content Include="assets\css\docs.min.css.map" />
     <Content Include="DLL\HandlerStoreDetail.ashx" />
     <Content Include="DLL\HandlerLogin.ashx" />
+    <Content Include="DLL\HandlerDeliveryDetail.ashx" />
     <None Include="Properties\PublishProfiles\PPWEB.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

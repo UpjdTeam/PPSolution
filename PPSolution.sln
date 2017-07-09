@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WxBridge", "WxBridge\WxBrid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPWEB", "PPWEB\PPWEB.csproj", "{36F4F1DF-1846-4275-9D4C-656840EE5740}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAPL", "CAPL\CAPL.csproj", "{2D721EA9-3250-492B-B038-CA51B0721D05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{36F4F1DF-1846-4275-9D4C-656840EE5740}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F4F1DF-1846-4275-9D4C-656840EE5740}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F4F1DF-1846-4275-9D4C-656840EE5740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D721EA9-3250-492B-B038-CA51B0721D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D721EA9-3250-492B-B038-CA51B0721D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D721EA9-3250-492B-B038-CA51B0721D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D721EA9-3250-492B-B038-CA51B0721D05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
