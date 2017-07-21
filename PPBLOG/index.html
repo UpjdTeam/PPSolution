@@ -33,7 +33,31 @@
 </head>
 
 <body>
-
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#home">六十5章</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search..." />
+                </form>
+            </div>
+        </div>
+    </nav>
 
     <div id="home">
         <!-- Slider Starts -->
@@ -279,14 +303,15 @@
 
 
     <!-- Footer Starts -->
-<div class="footer text-center spacer">
-    <p class="wowload flipInX"><a href="#"><i class="fa fa-facebook fa-2x"></i></a><a href="#"><i class="fa fa-instagram fa-2x"></i></a><a href="#"><i class="fa fa-twitter fa-2x"></i></a><a href="#"><i class="fa fa-flickr fa-2x"></i></a>
-    </p>
-    Copyright 2017 Upjd Studio. All rights reserved.
+    <div class="footer text-center spacer">
+        <p class="wowload flipInX">
+            <a href="#"><i class="fa fa-facebook fa-2x"></i></a><a href="#"><i class="fa fa-instagram fa-2x"></i></a><a href="#"><i class="fa fa-twitter fa-2x"></i></a><a href="#"><i class="fa fa-flickr fa-2x"></i></a>
+        </p>
+        Copyright 2017 Upjd Studio. All rights reserved.
     <a href="http://www.miitbeian.gov.cn/" target="_blank">
         <i></i>沪ICP备17029432号
     </a>
-</div>
+    </div>
     <!-- # Footer Ends -->
     <a href="#home" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
 
@@ -335,28 +360,28 @@
     <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
     <script type="text/javascript">
         //LogViewer
-        $(document).ready(function () {
+        //$(document).ready(function () {
 
-            //IP
-            var cIp = returnCitySN["cip"];
-            if (cIp==="") {
-                return;
-            }
-            var cCity = returnCitySN["cname"];
-            if (cCity === "") {
-                return;
-            }
+        //    //IP
+        //    var cIp = returnCitySN["cip"];
+        //    if (cIp==="") {
+        //        return;
+        //    }
+        //    var cCity = returnCitySN["cname"];
+        //    if (cCity === "") {
+        //        return;
+        //    }
 
-            $.ajax({
-                type: 'POST',
-                url: "../dll/HandlerLogViewer.ashx",
-                data: { cType: "Query", IP: cIp,City:cCity,Page:"index.html", BlogVersion:"Dev"},
-                dataType: "json",
-                success: function (data) {
-                    return;
-                }
-            });
-        });
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: "../dll/HandlerLogViewer.ashx",
+        //        data: { cType: "Query", IP: cIp,City:cCity,Page:"index.html", BlogVersion:"Dev"},
+        //        dataType: "json",
+        //        success: function (data) {
+        //            return;
+        //        }
+        //    });
+        //});
     </script>
 
 </body>
