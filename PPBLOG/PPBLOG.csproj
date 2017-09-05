@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.XtraReports.v13.2.Design, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\DevExpress 13.2\Components\Bin\Framework\Design\DevExpress.XtraReports.v13.2.Design.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -67,10 +71,13 @@
     <Content Include="assets\gallery\jquery.blueimp-gallery.min.js" />
     <Content Include="assets\jquery.js" />
     <Content Include="assets\mobile\touchSwipe.min.js" />
+    <Content Include="assets\qrcode.js" />
     <Content Include="assets\respond\respond.js" />
     <Content Include="assets\script.js" />
     <Content Include="assets\style.css" />
     <Content Include="assets\wow\wow.min.js" />
+    <Content Include="barcodegen.html" />
+    <Content Include="css\CustomerStyle.css" />
     <Content Include="css\JosefinSansfontface.css" />
     <Content Include="css\Robotofontface.css" />
     <Content Include="font-awesome\css\font-awesome.css" />
@@ -81,6 +88,15 @@
     <Content Include="images\bg.jpg" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\lines.png" />
+    <Content Include="images\png\BarCode.Icon.png" />
+    <Content Include="images\png\CalculatedFields.Icon.png" />
+    <Content Include="images\png\Charts.Icon.png" />
+    <Content Include="images\png\IListDataSource.Icon.png" />
+    <Content Include="images\png\MasterDetailReport.Icon.png" />
+    <Content Include="images\png\MultiColumnReport.Icon.png" />
+    <Content Include="images\png\MultipleDataSources.Icon.png" />
+    <Content Include="images\png\Sparklines.Icon.png" />
+    <Content Include="images\png\TableOfContents.Icon.png" />
     <Content Include="images\portfolio\1.jpg" />
     <Content Include="images\portfolio\2.jpg" />
     <Content Include="images\portfolio\3.jpg" />
@@ -107,6 +123,7 @@
     <Content Include="images\team\7.jpg" />
     <Content Include="images\team\8.jpg" />
     <Content Include="images\team\9.jpg" />
+    <Content Include="images\works\barcode.png" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>二维码生成</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+
+
+    <script type="text/javascript" src="assets/jquery.js"></script>
+    <script type="text/javascript" src="assets/qrcode.js"></script>
+    <link rel="stylesheet" href="css/CustomerStyle.css" />
+</head>
+<body>
+    <div class="dbarcodegen">
+        <form>
+            <div class="form-group">
+                <label for="textcode">请输入条码内容</label>
+                <input type="button" value="生成条码" onclick="makeCode()"/>
+                <input type="button" value="日期条码" onclick="makeYmdCode()" />
+                <input id="textcode" type="text" class="form-control" placeholder="code context" />
+                
+            </div>
+
+            <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
+
+        </form>
+    </div>
+
+
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 100,
+            height: 100
+        });
+
+        var iSeq = 1;
+
+        function makeCode() {
+            var elText = document.getElementById("textcode");
+
+            if (!elText.value) {
+                elText.focus();
+                return;
+            }
+
+            qrcode.makeCode(elText.value);
+        }
+
+        function makeYmdCode() {
+            var date = new Date();
+            var iyear = date.getFullYear().toString();
+            var imonth = (date.getMonth() + 1).toString();
+            var idate = date.getDate().toString();
+
+            if (imonth.length < 2)
+                imonth = '0' + imonth;
+            if (idate.length < 2)
+                idate = '0' + idate;
+
+            var cSeq = '0000' + iSeq;
+            cSeq = cSeq.substr(cSeq.length - 4, 4);
+
+            //var elText = document.getElementById("textcode");
+            //elText.value = iyear + imonth + idate;
+
+            $("#textcode").val(iyear + imonth + idate + cSeq);
+            qrcode.makeCode(iyear + imonth + idate + cSeq);
+            iSeq = iSeq + 1;
+        }
+
+    </script>
+</body>
+</html>
