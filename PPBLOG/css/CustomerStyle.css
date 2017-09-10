@@ -1,4 +1,4 @@
-﻿body {font:300 14px/14px Roboto,Arial,Helvetica; -webkit-font-smoothing:antialiased;}
+﻿body {font:300 15px/15px Roboto,Arial,Helvetica;background-size: cover; -webkit-font-smoothing:antialiased;}
 
 a{color:#00a9c6; text-decoration:none;}
 a:hover{color:#666;}
@@ -115,9 +115,4 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 	.grid.team div{margin: 0;padding: 0;}
 	figure.effect-chico figcaption {padding: 1.5em;}
 	.footer{padding-bottom: 2em;}
-}
-
-
-.dbarcodegen {
-    margin: 10px;
 }

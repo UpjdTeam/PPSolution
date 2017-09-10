@@ -69,6 +69,7 @@
     <Content Include="assets\bootstrap\js\bootstrap.js" />
     <Content Include="assets\gallery\blueimp-gallery.min.css" />
     <Content Include="assets\gallery\jquery.blueimp-gallery.min.js" />
+    <Content Include="assets\ie-emulation-modes-warning.js" />
     <Content Include="assets\jquery.js" />
     <Content Include="assets\mobile\touchSwipe.min.js" />
     <Content Include="assets\qrcode.js" />
@@ -78,7 +79,9 @@
     <Content Include="assets\wow\wow.min.js" />
     <Content Include="barcodegen.html" />
     <Content Include="css\CustomerStyle.css" />
+    <Content Include="css\ie10-viewport-bug-workaround.css" />
     <Content Include="css\JosefinSansfontface.css" />
+    <Content Include="css\jumbotron.css" />
     <Content Include="css\Robotofontface.css" />
     <Content Include="font-awesome\css\font-awesome.css" />
     <Content Include="font-awesome\css\font-awesome.min.css" />

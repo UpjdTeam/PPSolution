@@ -13,24 +13,58 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
 
 
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/jumbotron.css" rel="stylesheet" />
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <script src="assets/ie-emulation-modes-warning.js"></script>
+
+
     <script type="text/javascript" src="assets/jquery.js"></script>
     <script type="text/javascript" src="assets/qrcode.js"></script>
-    <link rel="stylesheet" href="css/CustomerStyle.css" />
 </head>
 <body>
-    <div class="dbarcodegen">
-        <form>
-            <div class="form-group">
-                <label for="textcode">请输入条码内容</label>
-                <input type="button" value="生成条码" onclick="makeCode()"/>
-                <input type="button" value="日期条码" onclick="makeYmdCode()" />
-                <input id="textcode" type="text" class="form-control" placeholder="code context" />
-                
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="Index.html#home">六十5章</a>
             </div>
-
-            <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
-
-        </form>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search..." />
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1>QRCode Generator</h1>
+            <p>Generate QRCode, Auto create code for date</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-group">
+            <input type="button" value="生成条码" onclick="makeCode()" />
+            <input type="button" value="日期条码" onclick="makeYmdCode()" />
+            <input id="textcode" type="text" class="form-control" placeholder="code context" />
+        </div>
+        <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
     </div>
 
 
