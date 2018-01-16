@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>二维码生成，基于条码+互联网技术的应用</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">-->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <script src="assets/ie-emulation-modes-warning.js"></script>
+    <script type="text/javascript" src="assets/jquery.js"></script>
+    <script type="text/javascript" src="assets/qrcode.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="#">条码+互联网应用</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <li class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" />
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="Index.html#about">简介</a></li>
+                <li><a href="Index.html#services">服务</a></li>
+                <li><a href="Index.html#contact">联系我们</a></li>
+                <li><a href="StoreDetail.html">入库明细</a></li>
+                <li><a href="DeliveryDetail.html">出库明细</a></li>
+                <li><a href="CurrentStock.html">库存汇总</a></li>
+            </ul>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <br />
+    <br />
+    <br />
+    <div class="jumbotron">
+        <div class="container">
+            <h1>QRCode Generator</h1>
+            <p>Generate QRCode, Auto create code for date</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-group">
+            <input type="button" value="生成条码" onclick="makeCode()" />
+            <input type="button" value="日期条码" onclick="makeYmdCode()" />
+            <input id="textcode" type="text" class="form-control" placeholder="code context" />
+        </div>
+        <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
+    </div>
+
+
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 100,
+            height: 100
+        });
+
+        var iSeq = 1;
+
+        function makeCode() {
+            var elText = document.getElementById("textcode");
+
+            if (!elText.value) {
+                elText.focus();
+                return;
+            }
+
+            qrcode.makeCode(elText.value);
+        }
+
+        function makeYmdCode() {
+            var date = new Date();
+            var iyear = date.getFullYear().toString();
+            var imonth = (date.getMonth() + 1).toString();
+            var idate = date.getDate().toString();
+
+            if (imonth.length < 2)
+                imonth = '0' + imonth;
+            if (idate.length < 2)
+                idate = '0' + idate;
+
+            var cSeq = '0000' + iSeq;
+            cSeq = cSeq.substr(cSeq.length - 4, 4);
+
+            //var elText = document.getElementById("textcode");
+            //elText.value = iyear + imonth + idate;
+
+            $("#textcode").val(iyear + imonth + idate + cSeq);
+            qrcode.makeCode(iyear + imonth + idate + cSeq);
+            iSeq = iSeq + 1;
+        }
+
+    </script>
+</body>
+</html>

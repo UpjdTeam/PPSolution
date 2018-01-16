@@ -102,6 +102,7 @@
     <Content Include="assets\css\src\docs.css" />
     <Content Include="assets\css\src\pygments-manni.css" />
     <Content Include="assets\flash\ZeroClipboard.swf" />
+    <Content Include="assets\ie-emulation-modes-warning.js" />
     <Content Include="assets\img\components.png" />
     <Content Include="assets\img\devices.png" />
     <Content Include="assets\img\expo-lyft.jpg" />
@@ -109,6 +110,7 @@
     <Content Include="assets\img\expo-riot.jpg" />
     <Content Include="assets\img\expo-vogue.jpg" />
     <Content Include="assets\img\sass-less.png" />
+    <Content Include="assets\jquery.js" />
     <Content Include="assets\js\customize.min.js" />
     <Content Include="assets\js\docs.min.js" />
     <Content Include="assets\js\ie-emulation-modes-warning.js" />
@@ -127,6 +129,9 @@
     <Content Include="assets\js\vendor\less.min.js" />
     <Content Include="assets\js\vendor\uglify.min.js" />
     <Content Include="assets\js\vendor\ZeroClipboard.min.js" />
+    <Content Include="assets\qrcode.js" />
+    <Content Include="assets\script.js" />
+    <Content Include="barcodegen.html" />
     <Content Include="css\bootstrap-theme.css" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -134,7 +139,6 @@
     <Content Include="css\dashboard.css" />
     <Content Include="css\landing-page.css" />
     <Content Include="css\signin.css" />
-    <Content Include="dashboard.html" />
     <Content Include="CurrentStock.html" />
     <Content Include="DLL\HandlerInventory.ashx" />
     <Content Include="favicon.ico" />
@@ -188,15 +192,15 @@
     <Content Include="js\jquery\1.12.4\jquery.min.js" />
     <Content Include="js\npm.js" />
     <Content Include="js\ujscript.js" />
-    <Content Include="Login.html" />
     <Content Include="DeliveryDetail.html" />
-    <Content Include="HomePage.html" />
     <Content Include="StoreDetail.html" />
     <Content Include="Web.config" />
     <Content Include="XtraDocumentView.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DLL\BridgeResult.cs" />
+    <Compile Include="DLL\CurrentStock.cs" />
+    <Compile Include="DLL\DalCurrentStock.cs" />
     <Compile Include="DLL\DalInventory.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -211,6 +215,9 @@
     </Compile>
     <Compile Include="DLL\HandlerDeliveryDetail.ashx.cs">
       <DependentUpon>HandlerDeliveryDetail.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="DLL\HandlerCurrentStock.ashx.cs">
+      <DependentUpon>HandlerCurrentStock.ashx</DependentUpon>
     </Compile>
     <Compile Include="DLL\HandlerStoreDetail.ashx.cs">
       <DependentUpon>HandlerStoreDetail.ashx</DependentUpon>
@@ -259,6 +266,7 @@
     <Content Include="DLL\HandlerStoreDetail.ashx" />
     <Content Include="DLL\HandlerLogin.ashx" />
     <Content Include="DLL\HandlerDeliveryDetail.ashx" />
+    <Content Include="DLL\HandlerCurrentStock.ashx" />
     <None Include="Properties\PublishProfiles\PPWEB.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
