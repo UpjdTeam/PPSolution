@@ -29,5 +29,34 @@ namespace WxBridge
             
         }
 
+
+        public string GetProStoreSummary()
+        {
+            try
+            {
+
+                var cmd = new SqlCommand("Usp_GetStoreSummary") { CommandType = CommandType.StoredProcedure };
+                var mfun = new MFunction();
+                var dResult = mfun.GetSqlTableWithUsing(cmd);
+                if (dResult == null || dResult.Rows.Count < 1)
+                {
+                    return "今日无入库";
+                }
+
+                var cResult="";
+                for (var i = 0; i < dResult.Rows.Count; i++)
+                {
+                    cResult = cResult + dResult.Rows[i]["cUser"] + "入库:" + dResult.Rows[i]["CNT"] + " ; ";
+                }
+
+                return cResult;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
     }
 }

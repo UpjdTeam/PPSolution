@@ -45,18 +45,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand topnav" href="#">条码+互联网应用</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <li class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" />
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="Index.html#about">简介</a></li>
-                <li><a href="Index.html#services">服务</a></li>
-                <li><a href="Index.html#contact">联系我们</a></li>
+                <li><a href="Index.html">首页</a></li>
+                <li><a href="barcodegen.html">条码管理</a></li>
+                <li><a href="InventoryList.html">产品管理</a></li>
                 <li><a href="StoreDetail.html">入库明细</a></li>
                 <li><a href="DeliveryDetail.html">出库明细</a></li>
                 <li><a href="CurrentStock.html">库存汇总</a></li>
@@ -68,23 +65,112 @@
     <br />
     <br />
     <br />
-    <div class="jumbotron">
+    <!--<div class="jumbotron">
         <div class="container">
             <h1>QRCode Generator</h1>
             <p>Generate QRCode, Auto create code for date</p>
         </div>
-    </div>
+    </div>-->
     <div class="container">
-        <div class="form-group">
-            <input type="button" value="生成条码" onclick="makeCode()" />
-            <input type="button" value="日期条码" onclick="makeYmdCode()" />
-            <input id="textcode" type="text" class="form-control" placeholder="code context" />
+        <div>
+            <input class="btn btn-default" type="button" value="生成条码" onclick="makeCode()" />
+            <input class="btn btn-default" type="button" value="日期条码" onclick="makeYmdCode()" />
+            <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
         </div>
-        <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
+        <div>
+            <div class="input-group">
+                <span class="input-group-addon">条码号</span>
+                <input id="textcode" type="text" class="form-control" />
+            </div>
+        </div>
+        <div>
+            <div class="input-group">
+                <span class="input-group-addon">&nbsp;&nbsp;产品&nbsp;&nbsp;</span>
+                <select id="selProduct" name="selProduct" class="form-control">
+                </select>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div>
+                    <button type="button" class="btn btn-xs btn-default" onclick="QueryProBarCodeData(false)">上一页</button>
+                    <span class="label label-default">当前第</span><span id="spanNumber" class="label label-default">1</span>
+                    <span class="label label-default">总页数</span><span id="spanPageCount" class="label label-default">0</span>
+                    <span class="label label-default">总记录数</span><span id="spanRecordCount" class="label label-default">0</span>
+                    <button type="button" class="btn btn-xs btn-default" onclick="QueryProBarCodeData(true)">下一页</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="tbProBarCode">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>条码号</th>
+                                <th>产品编码</th>
+                                <th>产品名称</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
 
     <script type="text/javascript">
+        //Loading For Initializion
+        $(document).ready(function () {
+
+            $.ajax({
+                type: 'POST',
+                url: "../DLL/HandlerInventory.ashx",
+                data: { cType: "QueryInventoryAll" },
+                dataType: "json",
+                success: function (data) {
+                    if (data.InventoryItems.length < 1)
+                        return;
+                    $.each(data.InventoryItems, function (i) {
+                        if (data.InventoryItems[i]["RowNumber"] === "1") {
+                            $("<option selected='selected'  value='" + data.InventoryItems[i]["InvCode"] + "'>" + data.InventoryItems[i]["InvName"] + "</option>").appendTo("#selProduct");
+                        } else {
+                            $("<option value='" + data.InventoryItems[i]["InvCode"] + "'>" + data.InventoryItems[i]["InvName"] + "</option>").appendTo("#selProduct");
+                        }
+
+                    });
+                }
+            });
+
+
+            $("#tbProBarCode tr:not(:first)").empty();
+            $.ajax({
+                type: 'POST',
+                url: "../DLL/HandlerProBarCode.ashx",
+                data: { cType: "QueryProBarCode", PageIndex: $('#spanNumber').text() },
+                dataType: "json",
+                success: function (data) {
+                    if (data.ProBarCodeItems.length < 1)
+                        return;
+                    for (var i = 0; i < data.ProBarCodeItems.length; i++) {
+                        var dr = "<tr onclick='makecodeFromList(" + data.ProBarCodeItems[i]["BarCode"] + ")'>" +
+                            "<td>" + data.ProBarCodeItems[i]["RowNumber"] + "</td>" +
+                            "<td>" + data.ProBarCodeItems[i]["BarCode"] + "</td>" +
+                            "<td>" + data.ProBarCodeItems[i]["InvCode"] + "</td>" +
+                            "<td>" + data.ProBarCodeItems[i]["InvName"] + "</td>" +
+                            "</tr>";
+                        $("#tbProBarCode").append(dr);
+                    }
+                    //总页数
+                    $('#spanPageCount').text(data.PageCount);
+                    //总记录数
+                    $('#spanRecordCount').text(data.RecordCount);
+                }
+            });
+        });
+
+
         var qrcode = new QRCode(document.getElementById("qrcode"), {
             width: 100,
             height: 100
@@ -99,8 +185,10 @@
                 elText.focus();
                 return;
             }
+            if (SaveProBarCode()) {
+                qrcode.makeCode(elText.value);
+            }
 
-            qrcode.makeCode(elText.value);
         }
 
         function makeYmdCode() {
@@ -117,12 +205,99 @@
             var cSeq = '0000' + iSeq;
             cSeq = cSeq.substr(cSeq.length - 4, 4);
 
-            //var elText = document.getElementById("textcode");
-            //elText.value = iyear + imonth + idate;
+            var cBarCode = iyear + imonth + idate + cSeq;
 
-            $("#textcode").val(iyear + imonth + idate + cSeq);
-            qrcode.makeCode(iyear + imonth + idate + cSeq);
-            iSeq = iSeq + 1;
+            $("#textcode").val(cBarCode);
+
+            if (SaveProBarCode()) {
+                qrcode.makeCode(cBarCode);
+                iSeq = iSeq + 1;
+            }
+        }
+
+
+        function SaveProBarCode() {
+            var elText = document.getElementById("textcode");
+
+            if (!elText.value) {
+                elText.focus();
+                alert("条码号必填");
+                return false;
+            }
+
+
+            var cBarCode = elText.value;
+            var cInvCode = $("#selProduct").val();
+
+            $.ajax({
+                type: 'POST',
+                url: "../DLL/HandlerProBarCode.ashx",
+                data: { cType: "AddProBarCode", BarCode: cBarCode, InvCode: cInvCode },
+                dataType: "json",
+                success: function (data) {
+                    if (!data.IsSuccess) {
+                        alert("错误:" + data.ErrorMessage);
+                    }
+                }
+            });
+
+            return true;
+        }
+
+
+        function QueryProBarCodeData(bNext) {
+
+            var iPage = Number($('#spanNumber').text());
+
+            if (iPage === 1 && bNext === false) {
+                alert("已经是第一页");
+                return;
+            }
+            if (bNext) {
+                iPage = iPage + 1;
+            } else {
+                iPage = iPage - 1;
+            }
+
+            var iPageCount = Number($('#spanPageCount').text());
+            if (iPage > iPageCount) {
+                alert("已经是最后一页");
+                return;
+            }
+
+
+
+            $('#spanNumber').text(iPage);
+            $("#tbProBarCode tr:not(:first)").empty();
+            $.ajax({
+                type: 'POST',
+                url: "../DLL/HandlerProBarCode.ashx",
+                data: { cType: "QueryProBarCode", PageIndex: iPage },
+                dataType: "json",
+                success: function (data) {
+                    if (data.ProBarCodeItems.length < 1)
+                        return;
+                    for (var i = 0; i < data.ProBarCodeItems.length; i++) {
+                        var dr = "<tr onclick='makecodeFromList(" + data.ProBarCodeItems[i]["BarCode"] + ")'>" +
+                            "<td>" + data.ProBarCodeItems[i]["RowNumber"] + "</td>" +
+                            "<td>" + data.ProBarCodeItems[i]["BarCode"] + "</td>" +
+                            "<td>" + data.ProBarCodeItems[i]["InvCode"] + "</td>" +
+                            "<td>" + data.ProBarCodeItems[i]["InvName"] + "</td>" +
+                            "</tr>";
+                        $("#tbProBarCode").append(dr);
+                    }
+
+                    //总页数
+                    $('#spanPageCount').text(data.PageCount);
+                    //总记录数
+                    $('#spanRecordCount').text(data.RecordCount);
+                }
+            });
+        }
+
+        function makecodeFromList(cBarCode) {
+            $("#textcode").val(cBarCode);
+            qrcode.makeCode(cBarCode);
         }
 
     </script>

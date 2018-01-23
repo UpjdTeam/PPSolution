@@ -88,13 +88,14 @@ namespace WxBridge
                         if (eventKey.Equals("scan_store_1"))
                         {
 
-                        
 
+                            var psa = new ProStoreAdapter();
+                            var storesummary = psa.GetProStoreSummary();
                             var xmlMsg = @"<xml><ToUserName><![CDATA[" + fromUserName + @"]]></ToUserName>
                                 <FromUserName><![CDATA[" + toUserName + @"]]></FromUserName>
                                 <CreateTime>1441848212</CreateTime>
                                 <MsgType><![CDATA[text]]></MsgType>
-                                <Content><![CDATA[" + "今日入库总数10" + @"]]></Content>
+                                <Content><![CDATA[" + storesummary + @"]]></Content>
                                 <MsgId>4385226390207725595</MsgId>
                                 <AgentID>1</AgentID>
                                 </xml>";
@@ -151,13 +152,14 @@ namespace WxBridge
                         if (eventKey.Equals("scan_delivery_1"))
                         {
 
-
+                            var pda = new ProDeliveryAdapter();
+                            var deliverysummary = pda.GetProDeliverySummary();
 
                             var xmlMsg = @"<xml><ToUserName><![CDATA[" + fromUserName + @"]]></ToUserName>
                                 <FromUserName><![CDATA[" + toUserName + @"]]></FromUserName>
                                 <CreateTime>1441848212</CreateTime>
                                 <MsgType><![CDATA[text]]></MsgType>
-                                <Content><![CDATA[" + "今日入库总数10" + @"]]></Content>
+                                <Content><![CDATA[" + deliverysummary + @"]]></Content>
                                 <MsgId>4385226390207725595</MsgId>
                                 <AgentID>1</AgentID>
                                 </xml>";

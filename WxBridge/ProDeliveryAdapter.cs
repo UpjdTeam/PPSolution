@@ -28,5 +28,35 @@ namespace WxBridge
             }
 
         }
+
+
+        public string GetProDeliverySummary()
+        {
+            try
+            {
+
+                var cmd = new SqlCommand("Usp_GetDeliverySummary") { CommandType = CommandType.StoredProcedure };
+                var mfun = new MFunction();
+                var dResult = mfun.GetSqlTableWithUsing(cmd);
+                if (dResult == null || dResult.Rows.Count < 1)
+                {
+                    return "今日无出库";
+                }
+
+                var cResult = "";
+                for (var i = 0; i < dResult.Rows.Count; i++)
+                {
+                    cResult = cResult + dResult.Rows[i]["cUser"] + "出库:" + dResult.Rows[i]["CNT"] + " ; ";
+                }
+
+                return cResult;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
     }
 }

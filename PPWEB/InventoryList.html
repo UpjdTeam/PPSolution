@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>产品列表，基于条码+互联网技术的应用</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">-->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="#">条码+互联网应用</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <li class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" />
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="Index.html">首页</a></li>
+                <li><a href="barcodegen.html">条码管理</a></li>
+                <li><a href="InventoryList.html">产品管理</a></li>
+                <li><a href="StoreDetail.html">入库明细</a></li>
+                <li><a href="DeliveryDetail.html">出库明细</a></li>
+                <li><a href="CurrentStock.html">库存汇总</a></li>
+            </ul>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <br />
+    <br />
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
+                <h2 class="sub-header">产品管理</h2>
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-addon">产品编码</span>
+                        <input id="cInvCode" type="text" class="form-control" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-addon">产品名称</span>
+                        <input id="cInvname" type="text" class="form-control" />
+                    </div>
+                </div>
+
+
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-addon">产品规格</span>
+                        <input id="cInvStd" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-addon">重量</span>
+                        <input id="iWeight" type="number" class="form-control" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-addon">箱规</span>
+                        <input class="form-control" type="number" min="1" max="100" id="iBoxQty" onkeyup="if (this.value.length == 1) {this.value = this.value.replace(/[^1-9]/g, '')} else {this.value = this.value.replace(/\D/g, '')}"
+                            onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" />
+                    </div>
+                </div>
+                <div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">备注</span>
+                        <input id="cMemo" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-info" type="button" onclick="UpdateInventory()">
+                        <i class="icon-ok bigger-110"></i>
+                        提交
+                    </button>
+
+                    &nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+                                                <i class="icon-undo bigger-110"></i>
+                                                重置
+                                            </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-xs btn-default" onclick="QueryInventoryData(false)">上一页</button>
+                    <span class="label label-default">当前第</span><span id="spanNumber" class="label label-default">1</span>
+                    <span class="label label-default">总页数</span><span id="spanPageCount" class="label label-default">0</span>
+                    <span class="label label-default">总记录数</span><span id="spanRecordCount" class="label label-default">0</span>
+                    <button type="button" class="btn btn-xs btn-default" onclick="QueryInventoryData(true)">下一页</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="tbInventory">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>产品编码</th>
+                                <th>产品名称</th>
+                                <th>重量</th>
+                                <th>箱规</th>
+                                <th>备注</th>
+                                <th>添加时间</th>
+
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="Index.html#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="Index.html#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="Index.html#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="Index.html#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; General Digital Project 2017. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        //Loading For Query SerialNumber
+        $(document).ready(function () {
+
+            $("#tbInventory tr:not(:first)").empty();
+            $.ajax({
+                type: 'POST',
+                url: "../DLL/HandlerInventory.ashx",
+                data: { cType: "QueryInventory", PageIndex: $('#spanNumber').text() },
+                dataType: "json",
+                success: function (data) {
+                    if (data.InventoryItems.length < 1)
+                        return;
+                    for (var i = 0; i < data.InventoryItems.length; i++) {
+                        var dr = "<tr>" +
+                            "<td>" + data.InventoryItems[i]["RowNumber"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["InvCode"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["InvName"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["Weight"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["BoxQty"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["Memo"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["AddTime"] + "</td>" +
+                            "</tr>";
+                        $("#tbInventory").append(dr);
+                    }
+                    //总页数
+                    $('#spanPageCount').text(data.PageCount);
+                    //总记录数
+                    $('#spanRecordCount').text(data.RecordCount);
+                }
+            });
+        });
+
+
+        function QueryInventoryData(bNext) {
+
+            var iPage = Number($('#spanNumber').text());
+
+            if (iPage === 1 && bNext === false) {
+                alert("已经是第一页");
+                return;
+            }
+            if (bNext) {
+                iPage = iPage + 1;
+            } else {
+                iPage = iPage - 1;
+            }
+
+            var iPageCount = Number($('#spanPageCount').text());
+            if (iPage > iPageCount) {
+                alert("已经是最后一页");
+                return;
+            }
+
+
+
+            $('#spanNumber').text(iPage);
+            $("#tbInventory tr:not(:first)").empty();
+            $.ajax({
+                type: 'POST',
+                url: "../DLL/HandlerInventory.ashx",
+                data: { cType: "QueryInventory", PageIndex: iPage },
+                dataType: "json",
+                success: function (data) {
+                    if (data.InventoryItems.length < 1)
+                        return;
+                    for (var i = 0; i < data.InventoryItems.length; i++) {
+                        var dr = "<tr>" +
+                            "<td>" + data.InventoryItems[i]["RowNumber"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["InvCode"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["InvName"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["Weight"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["BoxQty"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["Memo"] + "</td>" +
+                            "<td>" + data.InventoryItems[i]["AddTime"] + "</td>" +
+                            "</tr>";
+                        $("#tbInventory").append(dr);
+                    }
+
+                    //总页数
+                    $('#spanPageCount').text(data.PageCount);
+                    //总记录数
+                    $('#spanRecordCount').text(data.RecordCount);
+                }
+            });
+        }
+
+
+        function UpdateInventory() {
+            var cInvCode = $('#cInvCode').val();
+            var cInvName = $('#cInvname').val();
+            var cInvStd = $("#cInvStd").val();
+            var cMemo = $("#cMemo").val();
+            var iWeight = $("#iWeight").val();
+            var iBoxQty = $("#iBoxQty").val();
+
+            if (isNaN(iWeight)) {
+                alert("重量要求为数字");
+                return;
+            }
+
+            if (isNaN(iBoxQty)) {
+                alert("箱规要求为数字");
+                return;
+            }
+
+            if (cInvCode === "") {
+                alert("编码必须输入");
+                return;
+            }
+
+            if (cInvName === "") {
+                alert("名称必须输入");
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "../DLL/HandlerInventory.ashx",
+                data: {
+                    cType: "Update", InvCode: cInvCode, InvName: cInvName, InvStd: cInvStd, Weight: iWeight, BoxQty: iBoxQty, Memo: cMemo
+                },
+                dataType: "json",
+                success: function (data) {
+
+                    if (data.IsSuccess) {
+                        alert("更新成功！");
+                    } else {
+                        alert("更新失败" + data.ErrorMessage);
+                    }
+                }
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
