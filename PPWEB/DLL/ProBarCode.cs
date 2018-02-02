@@ -24,7 +24,8 @@ namespace PPWEB.DLL
         [DataMember]
         public string InvName { get; set; }
 
-
+        [DataMember]
+        public string Memo { get; set; }
         
     }
 }

@@ -53,7 +53,7 @@ namespace PPWEB.DLL
                             BarCode = dtProBarCode.Rows[i]["cSerialNumber"].ToString(),
                             InvCode = dtProBarCode.Rows[i]["cInvCode"].ToString(),
                             InvName = dtProBarCode.Rows[i]["cInvName"].ToString(),
-                           
+                            Memo = dtProBarCode.Rows[i]["cMemo"].ToString(),
                         };
 
                         invListItems.Add(inv);

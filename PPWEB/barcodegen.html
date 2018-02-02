@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">条码+互联网应用</a>
+                <a class="navbar-brand topnav" href="Index.html">条码+互联网应用</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <li class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" />
@@ -73,8 +73,9 @@
     </div>-->
     <div class="container">
         <div>
-            <input class="btn btn-default" type="button" value="生成条码" onclick="makeCode()" />
-            <input class="btn btn-default" type="button" value="日期条码" onclick="makeYmdCode()" />
+            <input class="btn btn-default" type="button" value="生成条码" onclick="onlymakeCode()" />
+            <input class="btn btn-default" type="button" value="序列号下线" onclick="makeYmdCode()"/>
+            <input class="btn btn-default" type="button" value="产品下线" onclick="makeCodeAndSave()" />
             <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
         </div>
         <div>
@@ -108,6 +109,7 @@
                                 <th>条码号</th>
                                 <th>产品编码</th>
                                 <th>产品名称</th>
+                                <th>状态</th>
                             </tr>
                         </thead>
 
@@ -134,7 +136,7 @@
                         return;
                     $.each(data.InventoryItems, function (i) {
                         if (data.InventoryItems[i]["RowNumber"] === "1") {
-                            $("<option selected='selected'  value='" + data.InventoryItems[i]["InvCode"] + "'>" + data.InventoryItems[i]["InvName"] + "</option>").appendTo("#selProduct");
+                            $("<option selected='selected'  value=" + data.InventoryItems[i]["InvCode"] + ">" + data.InventoryItems[i]["InvName"] + "</option>").appendTo("#selProduct");
                         } else {
                             $("<option value='" + data.InventoryItems[i]["InvCode"] + "'>" + data.InventoryItems[i]["InvName"] + "</option>").appendTo("#selProduct");
                         }
@@ -154,11 +156,12 @@
                     if (data.ProBarCodeItems.length < 1)
                         return;
                     for (var i = 0; i < data.ProBarCodeItems.length; i++) {
-                        var dr = "<tr onclick='makecodeFromList(" + data.ProBarCodeItems[i]["BarCode"] + ")'>" +
+                        var dr = "<tr onclick='makecodeFromList(\"" + data.ProBarCodeItems[i]["BarCode"] + "\")'>" +
                             "<td>" + data.ProBarCodeItems[i]["RowNumber"] + "</td>" +
                             "<td>" + data.ProBarCodeItems[i]["BarCode"] + "</td>" +
                             "<td>" + data.ProBarCodeItems[i]["InvCode"] + "</td>" +
                             "<td>" + data.ProBarCodeItems[i]["InvName"] + "</td>" +
+                            "<td>" + data.ProBarCodeItems[i]["Memo"] + "</td>" +
                             "</tr>";
                         $("#tbProBarCode").append(dr);
                     }
@@ -178,7 +181,8 @@
 
         var iSeq = 1;
 
-        function makeCode() {
+        //生成条码并入库
+        function makeCodeAndSave() {
             var elText = document.getElementById("textcode");
 
             if (!elText.value) {
@@ -187,7 +191,20 @@
             }
             if (SaveProBarCode()) {
                 qrcode.makeCode(elText.value);
+                QueryProBarCodeData(null);
             }
+
+        }
+
+        //仅仅生成条码
+        function onlymakeCode() {
+            var elText = document.getElementById("textcode");
+
+            if (!elText.value) {
+                elText.focus();
+                return;
+            }
+            qrcode.makeCode(elText.value);
 
         }
 
@@ -212,6 +229,7 @@
             if (SaveProBarCode()) {
                 qrcode.makeCode(cBarCode);
                 iSeq = iSeq + 1;
+                QueryProBarCodeData(null);
             }
         }
 
@@ -253,11 +271,16 @@
                 alert("已经是第一页");
                 return;
             }
-            if (bNext) {
-                iPage = iPage + 1;
+            if (bNext !== null) {
+                if (bNext) {
+                    iPage = iPage + 1;
+                } else {
+                    iPage = iPage - 1;
+                }
             } else {
-                iPage = iPage - 1;
+                iPage = 1;
             }
+            
 
             var iPageCount = Number($('#spanPageCount').text());
             if (iPage > iPageCount) {
@@ -278,11 +301,12 @@
                     if (data.ProBarCodeItems.length < 1)
                         return;
                     for (var i = 0; i < data.ProBarCodeItems.length; i++) {
-                        var dr = "<tr onclick='makecodeFromList(" + data.ProBarCodeItems[i]["BarCode"] + ")'>" +
+                        var dr = "<tr onclick='makecodeFromList(\""+ data.ProBarCodeItems[i]["BarCode"] + "\")'>" +
                             "<td>" + data.ProBarCodeItems[i]["RowNumber"] + "</td>" +
                             "<td>" + data.ProBarCodeItems[i]["BarCode"] + "</td>" +
                             "<td>" + data.ProBarCodeItems[i]["InvCode"] + "</td>" +
                             "<td>" + data.ProBarCodeItems[i]["InvName"] + "</td>" +
+                            "<td>" + data.ProBarCodeItems[i]["Memo"] + "</td>" +
                             "</tr>";
                         $("#tbProBarCode").append(dr);
                     }
@@ -297,7 +321,7 @@
 
         function makecodeFromList(cBarCode) {
             $("#textcode").val(cBarCode);
-            qrcode.makeCode(cBarCode);
+            qrcode.makeCode($("#textcode").val());
         }
 
     </script>
