@@ -16,5 +16,14 @@ namespace PPWEB.DLL
             var msf = new MSSQLFunction();
             return msf.GetSqlTableWithUsing(cmd);
         }
+        public static DataTable GetDeliveryDetailByDate(DateTime dStart,DateTime dEnd)
+        {
+            var cmd = new SqlCommand("spLocal_GetDeliveryDetailByDate");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@dStart", dStart);
+            cmd.Parameters.AddWithValue("@dEnd", dEnd);
+            var msf = new MSSQLFunction();
+            return msf.GetSqlTableWithUsing(cmd);
+        }
     }
 }

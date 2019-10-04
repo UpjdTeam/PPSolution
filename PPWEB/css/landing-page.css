@@ -19,6 +19,7 @@ h5,
 h6 {
     font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
+    color:#025896;
 }
 
 .topnav {
@@ -33,9 +34,9 @@ h6 {
 .intro-header {
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
-    text-align: center;
+    text-align: right;
     color: #f8f8f8;
-    background: url(../img/intro-bg.jpg) no-repeat center center;
+    background: url(../img/header-logo.png) no-repeat center center;
     background-size: cover;
 }
 
@@ -64,10 +65,12 @@ h6 {
 @media(max-width:767px) {
     .intro-message {
         padding-bottom: 15%;
+        
     }
 
     .intro-message > h1 {
         font-size: 3em;
+        
     }
 
     ul.intro-social-buttons > li {
@@ -116,8 +119,9 @@ h6 {
 .banner {
     padding: 100px 0;
     color: #f8f8f8;
-    background: url(../img/banner-bg.jpg) no-repeat center center;
+    background: url(../img/header-brand-blue.png) no-repeat center center;
     background-size: cover;
+    background-color:#066BAF;
 }
 
 .banner h2 {

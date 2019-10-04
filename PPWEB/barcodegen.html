@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="Index.html">条码+互联网应用</a>
+                <a class="navbar-brand topnav" href="Index.html">条码+互联网应用 | 章玲 | 厦门大学论文 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <li class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" />
@@ -72,35 +72,38 @@
         </div>
     </div>-->
     <div class="container">
-        <div>
-            <input class="btn btn-default" type="button" value="生成条码" onclick="onlymakeCode()" />
-            <input class="btn btn-default" type="button" value="序列号下线" onclick="makeYmdCode()"/>
-            <input class="btn btn-default" type="button" value="产品下线" onclick="makeCodeAndSave()" />
-            <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
-        </div>
-        <div>
-            <div class="input-group">
+        
+        <div style="margin:10px;">
+            <div class="input-group col-lg-3">
                 <span class="input-group-addon">条码号</span>
                 <input id="textcode" type="text" class="form-control" />
             </div>
         </div>
-        <div>
-            <div class="input-group">
+        <div  style="margin:10px;">
+            <div class="input-group col-lg-3">
                 <span class="input-group-addon">&nbsp;&nbsp;产品&nbsp;&nbsp;</span>
-                <select id="selProduct" name="selProduct" class="form-control">
+                <select id="selProduct" name="selProduct" class="form-control" onchange="changeSelect()">
                 </select>
             </div>
         </div>
-
+        <div  style="margin:10px;">
+            <div class="input-group col-lg-3">
+                <span class="input-group-addon">&nbsp;&nbsp;产品名称</span>
+                <input id="txtcName" type="text" class="form-control" />
+            </div>
+        </div>
+        <div style="margin:10px">
+            <div id="qrcode" style="width: 100px; height: 100px; margin-top: 15px;"></div>
+            <input class="btn btn-default" type="button" value="生成条码" onclick="onlymakeCode()" />
+            <input class="btn btn-default" type="button" value="打印条码" onclick="PrinterCode()" />
+            <input class="btn btn-default" type="button" value="序列号下线" onclick="makeYmdCode()"/>
+            <input class="btn btn-default" type="button" value="产品下线" onclick="makeCodeAndSave()" />
+            
+            
+        </div>
         <div class="container-fluid">
             <div class="row">
-                <div>
-                    <button type="button" class="btn btn-xs btn-default" onclick="QueryProBarCodeData(false)">上一页</button>
-                    <span class="label label-default">当前第</span><span id="spanNumber" class="label label-default">1</span>
-                    <span class="label label-default">总页数</span><span id="spanPageCount" class="label label-default">0</span>
-                    <span class="label label-default">总记录数</span><span id="spanRecordCount" class="label label-default">0</span>
-                    <button type="button" class="btn btn-xs btn-default" onclick="QueryProBarCodeData(true)">下一页</button>
-                </div>
+                
                 <div class="table-responsive">
                     <table class="table table-striped" id="tbProBarCode">
                         <thead>
@@ -115,11 +118,74 @@
 
                     </table>
                 </div>
-
+                <div style="margin:10px">
+                    <button type="button" class="btn btn-xs btn-default" onclick="QueryProBarCodeData(false)">上一页</button>
+                    <span class="label label-default">当前第</span><span id="spanNumber" class="label label-default">1</span>
+                    <span class="label label-default">总页数</span><span id="spanPageCount" class="label label-default">0</span>
+                    <span class="label label-default">总记录数</span><span id="spanRecordCount" class="label label-default">0</span>
+                    <button type="button" class="btn btn-xs btn-default" onclick="QueryProBarCodeData(true)">下一页</button>
+                </div>
             </div>
         </div>
 
     </div>
+    <a name="contact"></a>
+    <div class="banner">
+
+        <div class="container">
+
+            <!--<div class="row">
+                <div class="col-lg-6">
+                    <h2>联系我们:</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://www.baidu.com/p/tiebing87?from=pp" class="btn btn-default btn-lg"><i class="fa fa-globe fa-fw"></i><span class="network-name">Baidu</span></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/UpjdTeam/PPSolution" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i><span class="network-name">Github</span></a>
+                        </li>
+                        <li>
+                            <a href="mailto:408545435@qq.com" class="btn btn-default btn-lg"><i class="fa fa-envelope-o fa-fw"></i><span class="network-name">Mail</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>-->
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; 章玲 2017-2020. 厦门大学学位论文作品</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
     <script type="text/javascript">
@@ -156,7 +222,7 @@
                     if (data.ProBarCodeItems.length < 1)
                         return;
                     for (var i = 0; i < data.ProBarCodeItems.length; i++) {
-                        var dr = "<tr onclick='makecodeFromList(\"" + data.ProBarCodeItems[i]["BarCode"] + "\")'>" +
+                        var dr = "<tr onclick='makecodeFromList(\"" + data.ProBarCodeItems[i]["BarCode"] + "\",\"" + data.ProBarCodeItems[i]["InvName"] + "\")'>" +
                             "<td>" + data.ProBarCodeItems[i]["RowNumber"] + "</td>" +
                             "<td>" + data.ProBarCodeItems[i]["BarCode"] + "</td>" +
                             "<td>" + data.ProBarCodeItems[i]["InvCode"] + "</td>" +
@@ -233,6 +299,26 @@
             }
         }
 
+        function PrinterCode() {
+            var elText = document.getElementById("textcode");
+
+            if (!elText.value) {
+                elText.focus();
+                alert("条码号必填");
+                return false;
+            }
+
+
+            var cBarCode = elText.value;
+            var cInvCode = $("#selProduct").val();
+            var cName = $("#txtcName").val();
+
+            window.open("/PPPrinter/Default.aspx?cBarCode=" + cBarCode + "&cCode=" + cInvCode + "&cName=" + cName, '_blank', 'width=800,height=400,top=100px,left=0px');
+        }
+
+        function changeSelect() {
+            $("#txtcName").val($("#selProduct").find("option:selected").text());
+        }
 
         function SaveProBarCode() {
             var elText = document.getElementById("textcode");
@@ -319,8 +405,9 @@
             });
         }
 
-        function makecodeFromList(cBarCode) {
+        function makecodeFromList(cBarCode,cName) {
             $("#textcode").val(cBarCode);
+            $("#txtcName").val(cName);
             qrcode.makeCode($("#textcode").val());
         }
 

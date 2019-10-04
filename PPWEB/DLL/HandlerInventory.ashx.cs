@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -117,6 +118,7 @@ namespace PPWEB.DLL
 
                         context.Response.Write(invListCollection.ToJson());
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -132,7 +134,59 @@ namespace PPWEB.DLL
 
 
             }
+            else
+            {
+                var cType = context.Request.QueryString["Action"];
+                if (cType != null && cType == "Excel")
+                {
+                    ExportToExcel(context);
+                }
+            }
         }
+
+        private void ExportToExcel(HttpContext context)
+        {
+
+            var cPageIndex = context.Request.QueryString["PageIndex"];
+            int iPageIndex;
+            if (!int.TryParse(cPageIndex, out iPageIndex))
+                return;
+
+            HttpResponse resp = System.Web.HttpContext.Current.Response;
+            resp.Charset = "utf-8";
+            resp.Clear();
+            string filename = "产品档案_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+            resp.AppendHeader("Content-Disposition", "attachment;filename=" + filename + ".xls");
+            resp.ContentEncoding = System.Text.Encoding.UTF8;
+
+            resp.ContentType = "application/ms-excel";
+            string style = "<meta http-equiv=\"content-type\" content=\"application/ms-excel; charset=utf-8\"/>" + "<style> .table{ font: 9pt Tahoma, Verdana; color: #000000; text-align:center;  background-color:#8ECBE8;  }.table td{text-align:center;height:45px;background-color:#EFF6FF;}.table th{ font: 9pt Tahoma, Verdana; color: #000000; font-weight: bold; background-color: #8ECBEA; height:35px;  text-align:center; padding-left:10px;}</style>";
+            resp.Write(style);
+
+            resp.Write("<table class='table'><tr><th>产品编号</th><th>产品名称</th><th>产品规格</th><th>重量</th><th>箱规</th><th>备注</th><th>添加时间</th><th>更新时间</th></tr>");
+
+            int rPageCount = 0, rRecordCount = 0;
+
+            var di = new DalInventory();
+            var dtInventory = di.QueryInventory(iPageIndex, 10, ref rPageCount, ref rRecordCount);
+            foreach (DataRow tmpRow in dtInventory.Rows)
+            {
+                resp.Write("<tr><td>" + tmpRow["cInvCode"] + "</td>");
+                resp.Write("<td>" + tmpRow["cInvName"] + "</td>");
+                resp.Write("<td>" + tmpRow["cInvStd"] + "</td>");
+                resp.Write("<td>" + tmpRow["iWeight"] + "</td>");
+                resp.Write("<td>" + tmpRow["iBoxQty"] + "</td>");
+                resp.Write("<td>" + tmpRow["cMemo"] + "</td>");
+                resp.Write("<td>" + tmpRow["dAddTime"] + "</td>");
+                resp.Write("<td>" + tmpRow["dUpdateTime"] + "</td>");
+                resp.Write("</tr>");
+            }
+            resp.Write("<table>");
+
+            resp.Flush();
+            resp.End();
+        }
+
 
         public bool IsReusable
         {

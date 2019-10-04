@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPSolution", "PPSolution\PPSolution.csproj", "{1B1EA867-62EA-49E0-8788-D29A5168A148}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "WebTest\WebTest.csproj", "{E6B62412-3710-45A1-B5CF-F12DC8A78616}"
@@ -14,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAPL", "CAPL\CAPL.csproj", "{2D721EA9-3250-492B-B038-CA51B0721D05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPBLOG", "PPBLOG\PPBLOG.csproj", "{22CF03F4-CC89-4946-BE3A-69758649E472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPPrinter", "PPPrinter\PPPrinter.csproj", "{036C33D1-4F91-4BEF-A93B-2345591EF693}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +45,15 @@ Global
 		{22CF03F4-CC89-4946-BE3A-69758649E472}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22CF03F4-CC89-4946-BE3A-69758649E472}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22CF03F4-CC89-4946-BE3A-69758649E472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{036C33D1-4F91-4BEF-A93B-2345591EF693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036C33D1-4F91-4BEF-A93B-2345591EF693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036C33D1-4F91-4BEF-A93B-2345591EF693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036C33D1-4F91-4BEF-A93B-2345591EF693}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD8D9659-4F05-4583-95DA-1685D3975D1C}
 	EndGlobalSection
 EndGlobal
